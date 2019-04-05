@@ -1,21 +1,24 @@
-let points = [];
-let hullPoints = [];
+let points //= [];
+let hullPoints //= [];
 let currHullIndex ;
 let pointIndex;
 let run;
 let bestAngle;
 let angle;
 let bestPoint;
+
 function setup(){
     createCanvas(1200, 700);
     frameRate(10);
-
+    points = [];
+    hullPoints = [];
     generatePoints();
 
     startPauseButton = createButton("Start/Pause");
     startPauseButton.class("btn btn-primary");
     startPauseButton.mousePressed(function(){
-        run =!run;
+        run = !run;
+        // console.log(run)
     });
 
     resetButton = createButton("Reset");
@@ -23,7 +26,12 @@ function setup(){
     resetButton.mousePressed(function(){
         points = [];
         hullPoints = [];
-        run = !run;
+        currHullIndex = 0;
+        pointIndex=0;
+        bestAngle=0;
+        angle=0;
+        bestPoint = -1;
+        // run = false;
         generatePoints();
 
     });
@@ -34,7 +42,7 @@ function setup(){
     bestAngle=0;
     angle=0;
     bestPoint = -1;
-    run = false;
+    // run = false;
 }
 
 function draw(){
@@ -94,14 +102,20 @@ function draw(){
         }
 
         pointIndex++;
+        //Check we reached the end of the points list
         if(pointIndex >= points.length){
+            //add the next best point to the boundary of the CH
             hullPoints.push(points[bestPoint]);
             hullPoints[currHullIndex].setColor("#225ea8");
+
+            //If we've reached back to the starting point terminate the algorithm
             if(hullPoints[0] == hullPoints[hullPoints.length-1]){
                 run = !run;
             }
-            pointIndex = 0;
+
             currHullIndex++;
+            //Reset all globals
+            pointIndex = 0;
             bestPoint = -1;
             bestAngle = 0;
         }
@@ -109,10 +123,16 @@ function draw(){
    
 }
 
+/**
+ * generatePoints()
+ * 
+ * Description: Autogenerate random set of points
+ */
 function generatePoints(){
     for(let i = 0; i < 30; i++){
         points.push(new Point(random(1100), random(600)));
     }
+    run = false;
 }
 
 /**
