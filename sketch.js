@@ -1,19 +1,23 @@
-let points //= [];
-let hullPoints //= [];
+/**
+ * Authur: Carlos Carbajal
+ */
+let points;
+let hullPoints;
 let currHullIndex ;
 let pointIndex;
 let run;
 let bestAngle;
 let angle;
 let bestPoint;
-
+let fr = 30;
 function setup(){
     createCanvas(1200, 700);
-    frameRate(10);
+    frameRate(fr);
     points = [];
     hullPoints = [];
     generatePoints();
 
+    //Create buttons to be used.
     startPauseButton = createButton("Start/Pause");
     startPauseButton.class("btn btn-primary");
     startPauseButton.mousePressed(function(){
@@ -31,11 +35,31 @@ function setup(){
         bestAngle=0;
         angle=0;
         bestPoint = -1;
-        // run = false;
         generatePoints();
 
     });
 
+    speedUpButton = createButton("Speed Up");
+    speedUpButton.class("btn btn-secondary");
+    speedUpButton.mousePressed(function(){
+        if(fr==60){
+            fr = 60;
+        }else{
+            fr++;
+        }
+        frameRate(fr);
+    });
+
+    slowdownButton = createButton("Slow Down");
+    slowdownButton.class("btn btn-secondary");
+    slowdownButton.mousePressed(function(){
+        if(fr==10){
+            fr = 0;
+        }else{
+            fr--;
+        }
+        frameRate(fr);
+    });
     //Initialize globals
     currHullIndex = 0;
     pointIndex=0;
@@ -129,7 +153,7 @@ function draw(){
  * Description: Autogenerate random set of points
  */
 function generatePoints(){
-    for(let i = 0; i < 30; i++){
+    for(let i = 0; i < 100; i++){
         points.push(new Point(random(1100), random(600)));
     }
     run = false;
