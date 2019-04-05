@@ -9,7 +9,8 @@ let run;
 let bestAngle;
 let angle;
 let bestPoint;
-let fr = 30;
+let fr = 60;
+
 function setup(){
     createCanvas(1200, 700);
     frameRate(fr);
@@ -42,8 +43,8 @@ function setup(){
     speedUpButton = createButton("Speed Up");
     speedUpButton.class("btn btn-secondary");
     speedUpButton.mousePressed(function(){
-        if(fr==60){
-            fr = 60;
+        if(fr==100){
+            fr = 100;
         }else{
             fr++;
         }
@@ -84,11 +85,12 @@ function draw(){
             p1.display();
             let p2 = hullPoints[i];
             p2.display();
+            strokeWeight(3);
             stroke("#225ea8");
             line(p1.xCoor, p1.yCoor, p2.xCoor, p2.yCoor);
         }
     }
-
+    strokeWeight(1);
     //This will draw a black line to the current best point that
     // can be added to CH
     if(bestPoint >-1){
@@ -150,11 +152,13 @@ function draw(){
 /**
  * generatePoints()
  * 
- * Description: Autogenerate random set of points
+ * Description: Autogenerate random set of points. Offsets by 10 pixels
+ *          from each side of the window.
+ * 
  */
 function generatePoints(){
-    for(let i = 0; i < 100; i++){
-        points.push(new Point(random(1100), random(600)));
+    for(let i = 0; i < 200; i++){
+        points.push(new Point(random(10,1190), random(10,690)));
     }
     run = false;
 }
