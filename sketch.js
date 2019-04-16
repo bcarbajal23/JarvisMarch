@@ -9,7 +9,7 @@ let run;
 let bestAngle;
 let angle;
 let bestPoint;
-let fr = 60;
+let fr = 30;
 
 function setup(){
     createCanvas(1200, 700);
