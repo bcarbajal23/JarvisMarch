@@ -19,48 +19,7 @@ function setup(){
     generatePoints();
 
     //Create buttons to be used.
-    startPauseButton = createButton("Start/Pause");
-    startPauseButton.class("btn btn-primary");
-    startPauseButton.mousePressed(function(){
-        run = !run;
-        // console.log(run)
-    });
-
-    resetButton = createButton("Reset");
-    resetButton.class("btn btn-primary");    
-    resetButton.mousePressed(function(){
-        points = [];
-        hullPoints = [];
-        currHullIndex = 0;
-        pointIndex=0;
-        bestAngle=0;
-        angle=0;
-        bestPoint = -1;
-        generatePoints();
-
-    });
-
-    speedUpButton = createButton("Speed Up");
-    speedUpButton.class("btn btn-secondary");
-    speedUpButton.mousePressed(function(){
-        if(fr==100){
-            fr = 100;
-        }else{
-            fr++;
-        }
-        frameRate(fr);
-    });
-
-    slowdownButton = createButton("Slow Down");
-    slowdownButton.class("btn btn-secondary");
-    slowdownButton.mousePressed(function(){
-        if(fr==10){
-            fr = 0;
-        }else{
-            fr--;
-        }
-        frameRate(fr);
-    });
+    setUpButtons();
     //Initialize globals
     currHullIndex = 0;
     pointIndex=0;
@@ -207,4 +166,49 @@ function leftMost(){
 
     points[l].setColor("#1d91c0");
     return l;
+}
+
+function setUpButtons(){
+    startPauseButton = createButton("Start/Pause");
+    startPauseButton.class("btn btn-primary");
+    startPauseButton.mousePressed(function(){
+        run = !run;
+        // console.log(run)
+    });
+
+    resetButton = createButton("Reset");
+    resetButton.class("btn btn-primary");    
+    resetButton.mousePressed(function(){
+        points = [];
+        hullPoints = [];
+        currHullIndex = 0;
+        pointIndex=0;
+        bestAngle=0;
+        angle=0;
+        bestPoint = -1;
+        generatePoints();
+
+    });
+
+    speedUpButton = createButton("Speed Up");
+    speedUpButton.class("btn btn-secondary");
+    speedUpButton.mousePressed(function(){
+        if(fr==100){
+            fr = 100;
+        }else{
+            fr++;
+        }
+        frameRate(fr);
+    });
+
+    slowdownButton = createButton("Slow Down");
+    slowdownButton.class("btn btn-secondary");
+    slowdownButton.mousePressed(function(){
+        if(fr==10){
+            fr = 0;
+        }else{
+            fr--;
+        }
+        frameRate(fr);
+    });
 }
